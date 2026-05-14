@@ -1,0 +1,12 @@
+---
+1: !ruby/object:Movie
+  title: '123'
+  genres:
+  - '123'
+  directors:
+  - '123'
+  actors:
+  - '123'
+  release_date: '123'
+  rating: 123.0
+  status: want_to_watch
