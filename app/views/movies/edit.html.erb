@@ -1,0 +1,8 @@
+<%# app/views/movies/edit.html.erb %>
+<h1 class="h3 mb-4">✏️ Редагувати: <%= @movie.title %></h1>
+
+<div class="card shadow-sm" style="max-width: 640px;">
+  <div class="card-body">
+    <%= render 'form', movie: @movie %>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<%# app/views/movies/_form.html.erb %>
+<%= form_with model: movie, local: true do |f| %>
+
+  <% if movie.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% movie.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :title, 'Назва', class: 'form-label fw-semibold' %>
+    <%= f.text_field :title, class: 'form-control', placeholder: 'Введіть назву фільму' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :genre_id, 'Жанр', class: 'form-label fw-semibold' %>
+    <%= f.select :genre_id,
+          Genre.order(:name).pluck(:name, :id),
+          { include_blank: '— Оберіть жанр —' },
+          class: 'form-select' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :director, 'Режисер', class: 'form-label fw-semibold' %>
+    <%= f.text_field :director, class: 'form-control', placeholder: 'Ім\'я режисера' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :release_date, 'Дата виходу', class: 'form-label fw-semibold' %>
+    <%= f.date_field :release_date, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :rating, 'Рейтинг (0–10)', class: 'form-label fw-semibold' %>
+    <%= f.number_field :rating, class: 'form-control',
+          min: 0, max: 10, step: 0.1, placeholder: 'Наприклад: 8.5' %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :status, 'Статус', class: 'form-label fw-semibold' %>
+    <%= f.select :status,
+          Movie.statuses.keys.map { |s| [s.humanize, s] },
+          {},
+          class: 'form-select' %>
+  </div>
+
+  <div class="d-flex gap-2">
+    <%= f.submit 'Зберегти', class: 'btn btn-primary' %>
+    <%= link_to 'Скасувати', movies_path, class: 'btn btn-secondary' %>
+  </div>
+
+<% end %>

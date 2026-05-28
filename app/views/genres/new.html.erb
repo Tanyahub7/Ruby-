@@ -1,0 +1,28 @@
+<%# app/views/genres/new.html.erb %>
+<h1 class="h3 mb-4">🎭 Новий жанр</h1>
+
+<div class="card shadow-sm" style="max-width: 480px;">
+  <div class="card-body">
+    <%= form_with model: @genre, local: true do |f| %>
+      <% if @genre.errors.any? %>
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% @genre.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= f.label :name, 'Назва жанру', class: 'form-label fw-semibold' %>
+        <%= f.text_field :name, class: 'form-control', placeholder: 'Наприклад: Sci-Fi' %>
+      </div>
+
+      <div class="d-flex gap-2">
+        <%= f.submit 'Зберегти', class: 'btn btn-primary' %>
+        <%= link_to 'Скасувати', genres_path, class: 'btn btn-secondary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

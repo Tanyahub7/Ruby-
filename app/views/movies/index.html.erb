@@ -1,0 +1,38 @@
+<%# app/views/movies/index.html.erb %>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0">🎬 Всі фільми</h1>
+  <%= link_to '+ Додати фільм', new_movie_path, class: 'btn btn-primary' %>
+</div>
+
+<% if @movies.empty? %>
+  <div class="alert alert-info">Каталог порожній. Додайте перший фільм!</div>
+<% else %>
+  <table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Назва</th>
+        <th>Жанр</th>
+        <th>Режисер</th>
+        <th>Рейтинг</th>
+        <th>Статус</th>
+        <th>Дії</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @movies.each do |movie| %>
+        <tr>
+          <td><strong><%= movie.title %></strong></td>
+          <td><%= movie.genre&.name || '—' %></td>
+          <td><%= movie.director || '—' %></td>
+          <td><%= rating_badge(movie) %></td>
+          <td><span class="badge bg-secondary"><%= movie.status.humanize %></span></td>
+          <td>
+            <%= link_to 'Деталі', movie, class: 'btn btn-sm btn-outline-primary' %>
+            <%= link_to 'Редагувати', edit_movie_path(movie), class: 'btn btn-sm btn-outline-secondary' %>
+            <%= link_to 'Видалити', movie, data: { turbo_method: :delete, turbo_confirm: 'Видалити фільм?' }, class: 'btn btn-sm btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
