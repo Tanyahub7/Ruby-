@@ -1,0 +1,36 @@
+<%# app/views/movies/released_this_year.html.erb %>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0">📅 Фільми цього року</h1>
+  <%= link_to '← Всі фільми', movies_path, class: 'btn btn-outline-secondary' %>
+</div>
+
+<% if @movies.empty? %>
+  <div class="alert alert-info">Фільмів з релізом у <%= Date.current.year %> році немає.</div>
+<% else %>
+  <table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Назва</th>
+        <th>Жанр</th>
+        <th>Режисер</th>
+        <th>Дата виходу</th>
+        <th>Рейтинг</th>
+        <th>Дії</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @movies.each do |movie| %>
+        <tr>
+          <td><strong><%= movie.title %></strong></td>
+          <td><%= movie.genre&.name || '—' %></td>
+          <td><%= movie.director || '—' %></td>
+          <td><%= movie.release_date&.strftime('%d.%m.%Y') || '—' %></td>
+          <td><%= rating_badge(movie) %></td>
+          <td>
+            <%= link_to 'Деталі', movie, class: 'btn btn-sm btn-outline-primary' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

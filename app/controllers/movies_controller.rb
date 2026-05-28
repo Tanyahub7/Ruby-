@@ -6,7 +6,11 @@ class MoviesController < ApplicationController
   end
 
   def watched
-    @movies = Movie.includes(:genre).where(status: :watched).order(:title)
+    @movies = Movie.watched_movies.includes(:genre).order(:title)
+  end
+
+  def released_this_year
+    @movies = Movie.released_this_year.includes(:genre).order(:release_date)
   end
 
   def show; end
@@ -46,6 +50,6 @@ class MoviesController < ApplicationController
   end
 
   def movie_params
-    params.require(:movie).permit(:title, :genre_id, :director, :release_date, :rating, :status)
+    params.require(:movie).permit(:title, :genre_id, :director, :release_date, :rating, :status, :description)
   end
 end
